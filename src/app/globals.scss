@@ -1,0 +1,585 @@
+@use "./responsive.scss" as *;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  width: 90vw;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+$color: #fc8a06;
+$sacendColor: #fff;
+$space-10: 10px;
+$fontSize-18: 18px;
+$defaultColor: #03081f;
+$fontFamily: sans-serif;
+a {
+  text-decoration: none;
+}
+@mixin flexList($x: space-between, $y: center, $dir: column) {
+  display: flex;
+  gap: $space-10;
+  justify-content: $x;
+  align-items: $y;
+  flex-direction: $dir;
+}
+
+@mixin gridList($min: 130px, $max: 220px, $y: center, $x: space-evenly) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min, $max));
+  align-items: $y;
+  justify-content: $x;
+  gap: $space-10;
+}
+
+// navbar
+%collapse {
+  width: 100%;
+  display: flex;
+}
+%nav {
+  flex-grow: 1;
+  display: flex;
+  @include flexList(flex-end, center, row);
+  list-style: none;
+  .nav-item {
+    margin-right: $space-10;
+    .nav-link {
+      &.active {
+        background-color: $color;
+        color: $sacendColor;
+        padding: $space-10 $space-10 * 2;
+        border-radius: $space-10 + 5;
+        transition: all ease 1s;
+      }
+      &:hover {
+        @extend .active;
+      }
+    }
+    .nav-link-order {
+      @include flexList(space-between, center, row);
+    }
+    .login {
+      background-color: $defaultColor;
+      padding: $space-10 $space-10 + 5;
+      border-radius: $space-10 + 5;
+      color: $sacendColor;
+      cursor: pointer;
+      @include flexList(space-between, center, row);
+      > svg {
+        background-color: $color;
+        color: $defaultColor;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+.navbar {
+  position: relative;
+  margin-top: $space-10;
+  @include flexList(space-between, center, row);
+  .collapse {
+    @extend %collapse;
+    .nav {
+      @extend %nav;
+    }
+  }
+  .toggler {
+    font-size: $fontSize-18;
+    transition: all ease 1s;
+    border: none;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: $space-10;
+    right: $space-10;
+    &:hover {
+      color: $color;
+    }
+  }
+}
+
+// home
+.home {
+  position: relative;
+  margin: $space-10 0;
+  overflow-x: hidden;
+  height: 400px;
+  background-color: $defaultColor;
+  @include flexList(space-between, center, row);
+  > .overlay {
+    position: absolute;
+    width: 100%;
+    background: url("../../public/home.png") center no-repeat;
+    background-size: 20%;
+    opacity: 0.5;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 2;
+  }
+  .home-info {
+    height: 400px;
+    width: 50%;
+    @include flexList(center, flex-start, column);
+    padding-left: $space-10 * 2;
+    z-index: 1;
+    p {
+      color: $sacendColor;
+      font-size: $fontSize-18 - 6;
+    }
+    h2 {
+      color: $sacendColor;
+      font-family: $fontFamily;
+    }
+    > span {
+      font-size: $fontSize-18 * 2;
+      font-family: $fontFamily;
+      color: $color;
+    }
+    div {
+      margin-top: $space-10;
+      width: 70%;
+      > p {
+        padding: $space-10;
+      }
+      form {
+        position: relative;
+        input {
+          width: 100%;
+          border-radius: 15px;
+          padding: $space-10;
+        }
+        > span {
+          color: $sacendColor;
+          padding: $space-10 $space-10 * 2;
+          border-radius: 15px;
+          background-color: $color;
+          cursor: pointer;
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+  }
+  .home-img {
+    z-index: 5;
+    @include flexList(center, center, row);
+    .details {
+      background-color: $color;
+      height: 300px;
+      flex-grow: 1;
+      min-width: 28vw;
+      gap: 0;
+      border-top-left-radius: 45%;
+      border-bottom-left-radius: 45%;
+      @include flexList(space-evenly, center, column);
+      > div {
+        background-color: $sacendColor;
+        width: 40%;
+        p {
+          font-size: $fontSize-18 - 8;
+          padding-right: $space-10 * 2;
+        }
+      }
+      .info {
+        margin-left: $space-10 * 3;
+      }
+    }
+  }
+}
+
+// category1
+.category {
+  margin: $space-10 0;
+  h2 {
+    padding: $space-10 0;
+  }
+  .grid {
+    @include gridList(100px, 140px, center, space-evenly);
+    .flex {
+      @include flexList(center, center, column);
+      border-radius: $space-10;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
+      h3 {
+        padding: $space-10;
+        width: 100%;
+        background-color: $defaultColor;
+        color: $color;
+      }
+    }
+  }
+}
+
+// solails
+.solails {
+  margin: $space-10 * 2 0;
+  @include gridList(290px, 1fr, center, center);
+  > .info {
+    @include flexList(center, center, column);
+    > div {
+      @include flexList(center, center, row);
+      &:nth-child(2) {
+        background-color: $defaultColor;
+        border-radius: 0 50% 50% 250%;
+        width: 80%;
+        margin: 0 auto;
+        padding: $space-10 * 4 0;
+        height: 60px;
+        :first-child {
+          color: $color;
+          text-decoration: underline;
+          font-size: $fontSize-18 + 8;
+          padding-left: $space-10 * 3;
+        }
+        :last-child {
+          font-size: $fontSize-18 + 8;
+          color: $sacendColor;
+        }
+      }
+    }
+    .app {
+      > :last-child {
+        background-color: $defaultColor;
+        padding: $space-10 - 5;
+        font-size: $fontSize-18;
+      }
+    }
+  }
+}
+
+// abouut
+.about {
+  margin: $space-10 * 3 0;
+  .info {
+    @include gridList(290px, 1fr, center, space-between);
+    padding: $space-10;
+  }
+  .details {
+    background-color: $defaultColor;
+    @include gridList(290px, 1fr, center, space-between);
+    padding: $space-10;
+    .details-title {
+      height: 300px;
+      @include flexList(space-evenly, center, column);
+      h4 {
+        color: $sacendColor;
+        background-color: $color;
+        border-radius: $space-10;
+        padding: $space-10 $space-10 * 2;
+      }
+      h5 {
+        color: $sacendColor;
+      }
+    }
+    .details-info {
+      @include flexList(space-evenly, center, row);
+      > div {
+        background: $sacendColor;
+        height: 200px;
+        width: 50%;
+        margin: 0 auto;
+        margin: $space-10 0;
+
+        @include flexList(space-between, center, column);
+        p {
+          text-align: center;
+          font-size: $fontSize-18 - 4;
+        }
+      }
+    }
+  }
+}
+
+// categories
+.categories {
+  margin: $space-10 * 2 0;
+  .grid {
+    @include gridList(300px, 1fr, center, space-evenly);
+    .flex {
+      @include flexList(space-between, center, column);
+      overflow: hidden;
+      border-radius: $space-10;
+      img {
+        width: 100%;
+      }
+      h3 {
+        width: 100%;
+        padding: $space-10;
+        color: $color;
+        background-color: $defaultColor;
+      }
+    }
+  }
+}
+
+// /details-id
+.details-id {
+  margin: $space-10 * 2 0;
+  .flex {
+    @include gridList(300px, 1fr, center, space-between);
+    img {
+      width: 100%;
+    }
+    > .info {
+      height: 300px;
+      @include flexList(space-evenly, flex-start, column);
+      h3 {
+        font-weight: 700;
+        font-family: $fontFamily;
+      }
+      p {
+        text-align: center;
+      }
+      h4 {
+        font-weight: 900;
+      }
+      > .icons {
+        @include flexList(space-evenly, center, row);
+        width: 100%;
+        > svg {
+          font-size: $fontSize-18 + 6;
+          color: $defaultColor;
+          border-radius: 50%;
+          background-color: $color;
+          overflow: hidden;
+          cursor: pointer;
+        }
+        p {
+          font-family: $fontFamily;
+          font-size: $fontSize-18 + 2;
+          font-weight: 600;
+        }
+        button {
+          padding: $space-10 $space-10 * 2;
+          color: $color;
+          font-family: $fontFamily;
+          border-radius: $space-10;
+          cursor: pointer;
+          width: 45%;
+          background-color: $defaultColor;
+          &.opacity {
+            opacity: 0.4;
+          }
+        }
+      }
+      h5 {
+        color: #f00;
+        font-weight: 900;
+        font-family: $fontFamily;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
+// similar
+.similar {
+  margin: $space-10 * 2 0;
+  h2 {
+    padding: $space-10;
+    font-family: $fontFamily;
+  }
+  .grid {
+    @include gridList(120px, 1fr, center, space-evenly);
+    margin: $space-10 0;
+  }
+}
+
+// sign-in
+.sign-in {
+  width: 100%;
+  min-height: 40vw;
+  @include flexList(center, center, row);
+}
+
+// order
+.order {
+  margin: $space-10 * 2 0;
+  > h1 {
+    background-color: $defaultColor;
+    padding: $space-10 * 4 0;
+    color: $color;
+    text-align: center;
+  }
+  .empty {
+    width: 100%;
+    background-color: $defaultColor;
+    height: 60vh;
+    color: $color;
+    @include flexList(center, center, column);
+    > svg {
+      font-size: $fontSize-18 * 3;
+    }
+    h1 {
+      margin-top: $space-10;
+    }
+  }
+  .flex {
+    box-shadow: 2px 2px 5px $defaultColor;
+    @include flexList(space-evenly, center, row);
+    margin: $space-10 * 2 0;
+    div {
+      height: 150px;
+      @include flexList(space-evenly, center, column);
+      > svg {
+        font-size: $fontSize-18 + 5;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// special-offersL
+.special-offers {
+  margin: $fontSize-18 * 2 0;
+  .special-offers-info {
+    background-color: $defaultColor;
+    @include gridList(300px, 1fr, center, center);
+    color: $sacendColor;
+    padding: $space-10 * 2 0;
+    .title {
+      margin: 0 $space-10;
+      @include flexList(center, flex-start, column);
+      p {
+        font-size: $fontSize-18 -6;
+      }
+      > div {
+        @include flexList(space-evenly, center, row);
+        > div {
+          border-radius: 15px;
+          border: $sacendColor solid 1px;
+          padding: $space-10 $space-10 * 2;
+          @include flexList(space-evenly, center, row);
+          p {
+            font-size: $fontSize-18 - 6;
+          }
+        }
+      }
+    }
+    .img {
+      @include flexList(center, center);
+      position: relative;
+      :first-child {
+        width: 80%;
+      }
+      :last-child {
+        position: absolute;
+        bottom: 0;
+        left: -20px;
+      }
+    }
+  }
+  .offer-menu {
+    margin: $space-10 * 2 0;
+    h2 {
+      padding: $space-10 * 3 0;
+      box-shadow: 0 4px 8px $color;
+      margin-bottom: $space-10 * 2;
+    }
+    .grid {
+      @include gridList(120px, 1fr, center, space-evenly);
+      .flex {
+        @include flexList(space-between, center, column);
+        overflow: hidden;
+        border-radius: $space-10 + 5;
+        img {
+          width: 100px;
+        }
+      }
+    }
+  }
+}
+
+// ranndom-menu
+.ranndom-menu {
+  margin: $space-10 * 2 0;
+  font-family: $fontFamily;
+  font-weight: 700;
+  h2 {
+    margin: $space-10 * 2 0;
+    padding: $space-10;
+    box-shadow: 0 3px 6px $color;
+  }
+  .grid {
+    margin: $space-10 * 2 0;
+    @include gridList(120px, 1fr, center, space-betwee);
+    .flex {
+      @include flexList(space-betwee, center, column);
+      color: $defaultColor;
+      p {
+        font-size: $fontSize-18 - 6;
+      }
+    }
+  }
+}
+
+// footer
+.footer {
+  margin-top: $space-10 * 2;
+  padding: $space-10 * 3 0;
+  .info {
+    @include gridList(300px, 1fr, center, space-betwee);
+    .collapse {
+      @extend %collapse;
+      .nav {
+        @extend %nav;
+      }
+    }
+  }
+  .socail {
+    margin: $space-10 * 2 auto;
+    width: 60%;
+    font-size: $fontSize-18 + 4;
+    @include flexList(space-evenly, center, row);
+    > svg {
+      cursor: pointer;
+      &:first-of-type {
+        color: #00f;
+      }
+      &:nth-child(2) {
+        color: #f00;
+      }
+      &:last-child {
+        color: #f00;
+      }
+    }
+  }
+  .time {
+    @include flexList(space-evenly, center, row);
+  }
+}
+
+// error ?
+.error {
+  height: 60vh;
+  @include flexList(center, center, column);
+  h1 {
+    font-family: $fontFamily;
+    font-weight: 800;
+    color: #f00;
+    padding: $space-10 * 2;
+  }
+}
+
+// not-found
+.not-found {
+  @extend .error;
+  h1 {
+    @extend h1;
+  }
+}
+
+// loader
+.loader {
+  background: url("../../public/logo1.png") no-repeat center;
+  background-size: 50% 40%;
+  width: 100%;
+  height: 60vh;
+}
