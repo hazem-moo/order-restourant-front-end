@@ -47,6 +47,9 @@ const Offers = () => {
         </div>
       </div>
     ));
+
+  console.log(data);
+
   return (
     <section className="special-offers">
       <Container>
