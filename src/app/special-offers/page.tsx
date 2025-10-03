@@ -39,7 +39,7 @@ const Offers = () => {
                   width={120}
                   height={100}
                   loading="lazy"
-                  src={item.img?.url.trim() ? item.img.url.trim() : ""}
+                  src={item.img?.url ? item.img.url.trim() : ""}
                 />
                 <h3>{item.name}</h3>
               </Link>
