@@ -14,15 +14,16 @@ const Offers = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: PropsGetMenus[] = await GetMenu();
-      setData(data);
+      const allData: PropsGetMenus[] = await GetMenu();
+      console.log(allData);
+      setData(allData);
       const uniqueCategory = Array.from(
         new Set(data.map((el) => el.category))
       ).filter(Boolean) as string[];
       setCategory(uniqueCategory);
     };
     fetchData();
-  }, []);
+  }, [data]);
 
   const dataList = category
     .filter((cat) => cat)
@@ -92,3 +93,27 @@ const Offers = () => {
 };
 
 export default Offers;
+
+// const dataList = category
+//   .filter((cat) => cat)
+//   .map((cat) => (
+//     <div key={cat} className="offer-menu">
+//       <h2>{cat}</h2>
+//       <div className="grid">
+//         {data
+//           .filter((el) => el.category === cat)
+//           .map((item) => (
+//             <Link href={`/menu/${item.id}`} className="flex" key={item.id}>
+//               <Image
+//                 alt={`${item.name}`}
+//                 width={120}
+//                 height={100}
+//                 loading="lazy"
+//                 src={item.img?.url ? item.img.url.trim() : ""}
+//               />
+//               <h3>{item.name}</h3>
+//             </Link>
+//           ))}
+//       </div>
+//     </div>
+//   ));
