@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const TotalMenus = ({ data, category }) => {
+const TotalMenus = ({ data, category }: any) => {
   const dataList = category
-    .filter((cat) => cat)
-    .map((cat) => (
+    .filter((cat: any) => cat)
+    .map((cat: any) => (
       <div key={cat} className="offer-menu">
         <h2>{cat}</h2>
         <div className="grid">
           {data
-            .filter((el) => el.category === cat)
-            .map((item) => (
+            .filter((el: any) => el.category === cat)
+            .map((item: any) => (
               <Link href={`/menu/${item.id}`} className="flex" key={item.id}>
                 <Image
                   alt={`${item.name}`}
