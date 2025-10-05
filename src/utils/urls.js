@@ -1,6 +1,7 @@
-import axios from "axios";
 // const url = `http://localhost:1337/api`;
 // export const PropsUrl = `http://localhost:1337`;
+
+import axios from "axios";
 
 const url = process.env.NEXT_PUBLIC_STRAPI_URL;
 const API_TOCKEN = process.env.STRAPI_API_TOKEN;
