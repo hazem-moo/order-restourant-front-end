@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/components/Container";
 import { GetMenu } from "@/utils/FUNC";
 import { PropsGetMenus } from "@/utils/types";
