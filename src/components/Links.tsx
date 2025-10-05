@@ -55,12 +55,20 @@ const Links = ({ open }: { open: boolean }) => {
           </Link>
         </li>
         <li className="nav-item">
-          <Link href={`/special-offers`} className="nav-link">
+          <Link
+            href={`/special-offers`}
+            className={`nav-link ${
+              usePath === "/special-offers" ? "active" : ""
+            }`}
+          >
             special offers
           </Link>
         </li>
         <li className="nav-item">
-          <Link href={`/order`} className="nav-link nav-link-order">
+          <Link
+            href={`/order`}
+            className={`nav-link ${usePath === "/order" ? "active" : ""}`}
+          >
             order <p>{!user ? "" : menu.length}</p>
           </Link>
         </li>
