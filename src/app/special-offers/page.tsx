@@ -1,54 +1,13 @@
-"use client";
 import Container from "@/components/Container";
 import { GetMenu } from "@/utils/FUNC";
 import { PropsGetMenus } from "@/utils/types";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { FaMotorcycle } from "react-icons/fa";
 import { FaFileCircleCheck } from "react-icons/fa6";
-import TotalMenus from "./TotalMenus";
 
-const Offers = () => {
-  const [category, setCategory] = useState<string[]>([]);
-  const [data, setData] = useState<PropsGetMenus[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const allData: PropsGetMenus[] = await GetMenu();
-      console.log(allData);
-      setData(allData);
-      const uniqueCategory = Array.from(
-        new Set(data.map((el) => el.category))
-      ).filter(Boolean) as string[];
-      setCategory(uniqueCategory);
-    };
-    fetchData();
-  }, [data]);
-
-  // const dataList = category
-  //   .filter((cat) => cat)
-  //   .map((cat) => (
-  //     <div key={cat} className="offer-menu">
-  //       <h2>{cat}</h2>
-  //       <div className="grid">
-  //         {data
-  //           .filter((el) => el.category === cat)
-  //           .map((item) => (
-  //             <Link href={`/menu/${item.id}`} className="flex" key={item.id}>
-  //               <Image
-  //                 alt={`${item.name}`}
-  //                 width={120}
-  //                 height={100}
-  //                 loading="lazy"
-  //                 src={item.img?.url ? item.img.url.trim() : ""}
-  //               />
-  //               <h3>{item.name}</h3>
-  //             </Link>
-  //           ))}
-  //       </div>
-  //     </div>
-  //   ));
-
+const Offers = async () => {
+  const menus: PropsGetMenus[] = await GetMenu();
+  console.log(menus);
   return (
     <section className="special-offers">
       <Container>
@@ -84,7 +43,6 @@ const Offers = () => {
             />
           </div>
         </div>
-        <TotalMenus data={data} category={category} />
       </Container>
     </section>
   );
