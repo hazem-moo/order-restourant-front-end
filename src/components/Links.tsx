@@ -58,7 +58,7 @@ const Links = ({ open }: { open: boolean }) => {
           <Link
             href={`/special-offers`}
             className={`nav-link ${
-              usePath === "/special-offers" ? "active" : ""
+              usePath === `/special-offers` ? " active" : ""
             }`}
           >
             special offers
@@ -67,7 +67,7 @@ const Links = ({ open }: { open: boolean }) => {
         <li className="nav-item">
           <Link
             href={`/order`}
-            className={`nav-link ${usePath === "/order" ? "active" : ""}`}
+            className={`nav-link ${usePath === `/order` ? " active" : ""}`}
           >
             order <p>{!user ? "" : menu.length}</p>
           </Link>
