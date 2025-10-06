@@ -1,4 +1,3 @@
-"use client";
 import Container from "@/components/Container";
 import { GetMenu } from "@/utils/FUNC";
 import { PropsGetMenus } from "@/utils/types";
@@ -8,7 +7,8 @@ import { FaFileCircleCheck } from "react-icons/fa6";
 
 const Offers = async () => {
   const menus: PropsGetMenus[] = await GetMenu();
-  console.log(menus);
+  const category = new Set(menus.map((el) => el.category));
+
   return (
     <section className="special-offers">
       <Container>
@@ -44,6 +44,7 @@ const Offers = async () => {
             />
           </div>
         </div>
+        {category}
       </Container>
     </section>
   );
