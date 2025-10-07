@@ -2,6 +2,7 @@ import { GetMenu } from "@/utils/FUNC";
 import { IdProps, PropsGetMenus } from "@/utils/types";
 import Details from "./Details";
 import Similar from "./Similar";
+import RandomMenu from "@/components/RandomMenu";
 
 const page = async ({ params }: IdProps) => {
   const id = Number(params.id);
@@ -28,6 +29,7 @@ const page = async ({ params }: IdProps) => {
     <>
       {menuList}
       <Similar data={similar} />
+      <RandomMenu />
     </>
   );
 };
