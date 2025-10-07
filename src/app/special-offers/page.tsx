@@ -2,12 +2,37 @@ import Container from "@/components/Container";
 import { GetMenu } from "@/utils/FUNC";
 import { PropsGetMenus } from "@/utils/types";
 import Image from "next/image";
+import Link from "next/link";
 import { FaMotorcycle } from "react-icons/fa";
 import { FaFileCircleCheck } from "react-icons/fa6";
 
 const Offers = async () => {
   const menus: PropsGetMenus[] = await GetMenu();
-  const category = new Set(menus.map((el) => el.category));
+  const category = new Set(menus.map((el) => el.category).filter(Boolean));
+
+  const menuList = Array.from(category)
+    .filter((cats) => cats)
+    .map((cats) => (
+      <div key={cats} className="offer-menu">
+        <h2>{cats}</h2>
+        <div className="grid">
+          {menus
+            .filter((item) => item.category === cats)
+            .map((el) => (
+              <Link href={`/menu/${el.id}`} className="flex" key={el.id}>
+                <Image
+                  alt={`${el.name}`}
+                  width={120}
+                  height={100}
+                  loading="lazy"
+                  src={el.img?.url ? el.img.url.trim() : ""}
+                />
+                <h3>{el.name}</h3>
+              </Link>
+            ))}
+        </div>
+      </div>
+    ));
 
   return (
     <section className="special-offers">
@@ -44,7 +69,7 @@ const Offers = async () => {
             />
           </div>
         </div>
-        {category}
+        {menuList}
       </Container>
     </section>
   );
