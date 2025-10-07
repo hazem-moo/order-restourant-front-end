@@ -6,7 +6,7 @@ import React from "react";
 
 const Similar = ({ data }: PropsSimilar) => {
   const category = data.map((el) => (
-    <Link href={``} key={el.id} className="flex">
+    <Link href={`/menu/${el.id}`} key={el.id} className="flex">
       <Image
         alt=""
         width={120}
