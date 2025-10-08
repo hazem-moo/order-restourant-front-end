@@ -21,11 +21,11 @@ const Details = ({
   const { user } = useUser();
 
   const findById = menu.filter((el) => el.id === id).length;
-  const [write, setWrite] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-
   const rout = useRouter();
+
+  const [write, setWrite] = useState<string>("");
   const btnRef = useRef<HTMLButtonElement>(null);
+  const [loading, setLoading] = useState(false);
 
   const addToMenu = async () => {
     if (!user) {
@@ -38,13 +38,18 @@ const Details = ({
     }
 
     try {
-      setLoading(true); // بدأ التحميل
-      if (btnRef.current) {
-        btnRef.current.style.visibility = "hidden"; // إخفاء الزر
-      }
+      setLoading(true);
+      if (btnRef.current) btnRef.current.style.visibility = "hidden";
 
       const currentEmail = user.primaryEmailAddress?.emailAddress;
       const backEndOrder: PropsGetMenus[] = await getOrder();
+
+      // لو مفيش بيانات راجعة من الـ backend
+      if (!Array.isArray(backEndOrder)) {
+        console.error("getOrder() returned invalid data:", backEndOrder);
+        setWrite("Server returned invalid data");
+        return;
+      }
 
       const existItems = backEndOrder
         .filter((el) => el.email === currentEmail)
@@ -52,9 +57,9 @@ const Details = ({
 
       const filterMenu = menu.filter((el) => !existItems.includes(el.id));
 
+      // ✅ بدلاً من "return" هنا، خلينا نكمل عادي ونسمح بـ postMenu
       if (filterMenu.length === 0) {
-        setWrite("This selection already exists...");
-        return;
+        setWrite("Already exists, but updating your cart...");
       }
 
       const api = filterMenu.map((el) => ({
@@ -74,18 +79,16 @@ const Details = ({
         },
       };
 
+      // ✅ هنا بيتنفذ POST فعلاً
       await postMenu(apiData);
-      setWrite("Added successfully 🎉");
+      setWrite("Order added successfully 🎉");
     } catch (error) {
-      console.error(error);
-      setWrite("Something went wrong, please try again!");
+      console.error("Error in addToMenu:", error);
+      setWrite("Something went wrong while posting!");
     } finally {
-      // بعد 4 ثواني رجّع الزر
       setTimeout(() => {
         setLoading(false);
-        if (btnRef.current) {
-          btnRef.current.style.visibility = "visible";
-        }
+        if (btnRef.current) btnRef.current.style.visibility = "visible";
         setWrite("");
       }, 4000);
     }
