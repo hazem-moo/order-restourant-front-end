@@ -20,7 +20,7 @@ export const getOrder = async () => {
 
 export const postMenu = async (item) => {
   try {
-    const res = await axiosClient.post(`/orders`, item);
+    const res = await axiosClient.post(`/orders`, { data: item });
     return res.data.data;
   } catch (error) {
     console.error(error.message);

@@ -22,12 +22,14 @@ const Details = ({
 
   const findById = menu.filter((el) => el.id === id).length;
   const rout = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const [write, setWrite] = useState<string>("");
   const btnRef = useRef<HTMLButtonElement>(null);
-  const [loading, setLoading] = useState(false);
 
   const addToMenu = async () => {
+    console.log("🟡 addToMenu started");
+
     if (!user) {
       setWrite("Please sign in first to add to menu...");
       setTimeout(() => {
@@ -42,24 +44,23 @@ const Details = ({
       if (btnRef.current) btnRef.current.style.visibility = "hidden";
 
       const currentEmail = user.primaryEmailAddress?.emailAddress;
-      const backEndOrder: PropsGetMenus[] = await getOrder();
+      console.log("📧 Current Email:", currentEmail);
 
-      // لو مفيش بيانات راجعة من الـ backend
-      if (!Array.isArray(backEndOrder)) {
-        console.error("getOrder() returned invalid data:", backEndOrder);
-        setWrite("Server returned invalid data");
-        return;
-      }
+      const backEndOrder: PropsGetMenus[] = await getOrder();
+      console.log("📦 Orders from backend:", backEndOrder);
 
       const existItems = backEndOrder
         .filter((el) => el.email === currentEmail)
         .flatMap((ele) => ele.cart?.map((item) => item.orderId));
 
-      const filterMenu = menu.filter((el) => !existItems.includes(el.id));
+      console.log("🧾 Existing item IDs:", existItems);
 
-      // ✅ بدلاً من "return" هنا، خلينا نكمل عادي ونسمح بـ postMenu
+      const filterMenu = menu.filter((el) => !existItems.includes(el.id));
+      console.log("🆕 Filtered menu:", filterMenu);
+
       if (filterMenu.length === 0) {
-        setWrite("Already exists, but updating your cart...");
+        setWrite("This selection already exists...");
+        return;
       }
 
       const api = filterMenu.map((el) => ({
@@ -72,19 +73,20 @@ const Details = ({
       }));
 
       const apiData = {
-        data: {
-          username: user.fullName,
-          email: currentEmail,
-          cart: api,
-        },
+        username: user.fullName,
+        email: currentEmail,
+        cart: api,
       };
 
-      // ✅ هنا بيتنفذ POST فعلاً
+      console.log("🚀 Sending postMenu with:", apiData);
+
       await postMenu(apiData);
-      setWrite("Order added successfully 🎉");
+
+      console.log("✅ postMenu success");
+      setWrite("Added successfully 🎉");
     } catch (error) {
-      console.error("Error in addToMenu:", error);
-      setWrite("Something went wrong while posting!");
+      console.error("❌ Error in addToMenu:", error);
+      setWrite("Something went wrong, please try again!");
     } finally {
       setTimeout(() => {
         setLoading(false);
@@ -117,7 +119,7 @@ const Details = ({
                 disabled={findById === 0 || loading}
                 className={`${findById <= 0 ? "opacity" : ""}`}
               >
-                {loading ? "Adding..." : "Add Order"}
+                Add Order
               </button>
             </div>
             <h5>{write}</h5>
