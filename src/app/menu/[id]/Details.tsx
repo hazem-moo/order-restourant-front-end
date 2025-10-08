@@ -19,29 +19,44 @@ const Details = ({
 }: PropsGetMenus) => {
   const { menu, addMenu, removeMenu } = useMenu();
   const { user } = useUser();
+
   const findById = menu.filter((el) => el.id === id).length;
   const [write, setWrite] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
   const rout = useRouter();
   const btnRef = useRef<HTMLButtonElement>(null);
 
   const addToMenu = async () => {
     if (!user) {
-      setWrite("please sign in first to add to menu... ");
+      setWrite("Please sign in first to add to menu...");
       setTimeout(() => {
         setWrite("");
         rout.push("/sign-in");
-      }, 4000);
-    } else {
+      }, 3000);
+      return;
+    }
+
+    try {
+      setLoading(true); // بدأ التحميل
+      if (btnRef.current) {
+        btnRef.current.style.visibility = "hidden"; // إخفاء الزر
+      }
+
       const currentEmail = user.primaryEmailAddress?.emailAddress;
       const backEndOrder: PropsGetMenus[] = await getOrder();
+
       const existItems = backEndOrder
         .filter((el) => el.email === currentEmail)
         .flatMap((ele) => ele.cart?.map((item) => item.orderId));
+
       const filterMenu = menu.filter((el) => !existItems.includes(el.id));
 
       if (filterMenu.length === 0) {
-        setWrite("This selection already exists... ");
+        setWrite("This selection already exists...");
+        return;
       }
+
       const api = filterMenu.map((el) => ({
         orderId: el.id,
         name: el.name,
@@ -50,6 +65,7 @@ const Details = ({
         quantity: el.quantity,
         description: el.description,
       }));
+
       const apiData = {
         data: {
           username: user.fullName,
@@ -57,10 +73,20 @@ const Details = ({
           cart: api,
         },
       };
-      if (btnRef.current) btnRef.current.style.visibility = "hidden";
+
       await postMenu(apiData);
+      setWrite("Added successfully 🎉");
+    } catch (error) {
+      console.error(error);
+      setWrite("Something went wrong, please try again!");
+    } finally {
+      // بعد 4 ثواني رجّع الزر
       setTimeout(() => {
-        if (btnRef.current) btnRef.current.style.visibility = "visible";
+        setLoading(false);
+        if (btnRef.current) {
+          btnRef.current.style.visibility = "visible";
+        }
+        setWrite("");
       }, 4000);
     }
   };
@@ -83,12 +109,12 @@ const Details = ({
               <p>{findById} </p>
               <FaMinusCircle onClick={() => removeMenu(id)} />
               <button
-                onClick={addToMenu}
                 ref={btnRef}
-                disabled={findById === 0}
-                className={`${findById <= 0 ? "opacity" : null}`}
+                onClick={addToMenu}
+                disabled={findById === 0 || loading}
+                className={`${findById <= 0 ? "opacity" : ""}`}
               >
-                add order
+                {loading ? "Adding..." : "Add Order"}
               </button>
             </div>
             <h5>{write}</h5>
