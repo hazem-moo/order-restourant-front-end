@@ -77,7 +77,6 @@ const Details = ({
         email: currentEmail,
         cart: api,
       };
-
       console.log("🚀 Sending postMenu with:", apiData);
 
       await postMenu(apiData);
