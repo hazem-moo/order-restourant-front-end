@@ -1,9 +1,9 @@
-import { GetMenu } from "@/utils/FUNC";
 import { PropsGetMenus } from "@/utils/types";
 import React from "react";
 import Container from "./Container";
 import Link from "next/link";
 import Image from "next/image";
+import { GetMenu } from "@/app/api/FUNC";
 
 const RandomMenu = async () => {
   const data: PropsGetMenus[] = await GetMenu();

@@ -1,11 +1,11 @@
-import { GetMenu } from "@/utils/FUNC";
 import { IdProps, PropsGetMenus } from "@/utils/types";
 import Details from "./Details";
 import Similar from "./Similar";
 import RandomMenu from "@/components/RandomMenu";
+import { GetMenu } from "@/app/api/FUNC";
 
 const page = async ({ params }: IdProps) => {
-  const id = Number(params.id);
+  const id = await Number(params.id);
   const data: PropsGetMenus[] = await GetMenu();
 
   const menu = data.filter((el) => el.id === id);

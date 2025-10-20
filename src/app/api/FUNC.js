@@ -14,16 +14,18 @@ export const getOrder = async () => {
     const req = await axiosClient.get(`/orders?populate=*`);
     return req.data.data;
   } catch (error) {
-    console.error(error.message);
+    console.error("❌ Request failed:", error.response?.data || error.message);
   }
 };
 
 export const postMenu = async (item) => {
   try {
-    const res = await axiosClient.post(`/orders`, { data: item });
+    console.log("📦 SENDING ITEM:", item);
+    const res = await axiosClient.post(`/orders`, item);
     return res.data.data;
   } catch (error) {
-    console.error(error.message);
+    console.error("❌ Request failed:", error.response?.data || error.message);
+    console.error("🔍 Full error:", error);
   }
 };
 

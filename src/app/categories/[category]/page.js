@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
-import { GetMenu } from "@/utils/FUNC";
 import Image from "next/image";
 import Link from "next/link";
+import { GetMenu } from "../../api/FUNC";
 
 const Page = async ({ params }) => {
   const { category } = params;

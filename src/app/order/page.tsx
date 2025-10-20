@@ -1,6 +1,5 @@
 "use client";
 import Container from "@/components/Container";
-import { deleteMenu } from "@/utils/FUNC";
 import { useMenu } from "@/utils/MenuContext";
 import { PropsGetMenus } from "@/utils/types";
 import { useUser } from "@clerk/nextjs";
@@ -8,6 +7,7 @@ import Image from "next/image";
 import React from "react";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { deleteMenu } from "../api/FUNC";
 
 const Order = () => {
   const { menu, removeMenu } = useMenu();

@@ -4,7 +4,7 @@
 
 export const dynamic = "force-dynamic";
 
-import { getOrder } from "@/utils/FUNC";
+import { getOrder } from "@/app/api/FUNC";
 import { useMenu } from "@/utils/MenuContext";
 import { PropsGetMenus } from "@/utils/types";
 import { UserButton, useUser } from "@clerk/nextjs";
@@ -22,11 +22,11 @@ const Links = ({ open }: { open: boolean }) => {
     if (!user) return; // 🛑 ما تجيبش cart لو مفيش user
 
     const getOrderCart = async () => {
-      const getData: PropsGetMenus[] = await getOrder();
+      const getData: PropsGetMenus[] = (await getOrder()) || [];
 
-      const dataList: any[] = getData.flatMap((item) =>
+      const dataList: any[] = getData.flatMap((item: any) =>
         item.cart
-          ? item.cart.map((el) => ({
+          ? item.cart.map((el: any) => ({
               id: item.id,
               orderId: el.orderId,
               orderImg: el.orderImg,
