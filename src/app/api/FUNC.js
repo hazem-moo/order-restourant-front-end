@@ -6,6 +6,7 @@ export const GetMenu = async () => {
     return req.data.data;
   } catch (error) {
     console.error(error.message);
+    return [];
   }
 };
 

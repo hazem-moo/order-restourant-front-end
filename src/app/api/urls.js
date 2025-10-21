@@ -4,11 +4,16 @@
 // export const PropsUrl = `https://funny-harmony-ea89b56a43.strapiapp.com`;
 
 import axios from "axios";
-const api_token =
-  process.env.STRAPI_API_TOKEN || process.env.NEXT_PUBLIC_TOKEN || "";
+const api_token = process.env.STRAPI_API_TOKEN
+  ? process.env.STRAPI_API_TOKEN
+  : process.env.NEXT_PUBLIC_TOKEN;
+
+const url = process.env.NEXT_PUBLIC_STRAPI_URL
+  ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/api`
+  : `http://localhost:1337/api`;
 
 export const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_STRAPI_URL + "/api",
+  baseURL: url,
   headers: {
     Authorization: `Bearer ${api_token}`,
     "Content-Type": "application/json",
