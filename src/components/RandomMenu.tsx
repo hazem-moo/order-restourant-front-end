@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // 🔥 يخلي الصفحة دايمًا تتحدث
+
 import { PropsGetMenus } from "@/utils/types";
 import React from "react";
 import Container from "./Container";

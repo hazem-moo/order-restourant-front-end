@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // 🔥 يخلي الصفحة دايمًا تتحدث
+
 import { IdProps, PropsGetMenus } from "@/utils/types";
 import Details from "./Details";
 import Similar from "./Similar";

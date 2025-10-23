@@ -2,12 +2,6 @@ import { axiosClient } from "./urls";
 
 export const GetMenu = async () => {
   try {
-    console.log("🔑 STRAPI_API_TOKEN:", process.env.STRAPI_API_TOKEN);
-    console.log(
-      "🌐 NEXT_PUBLIC_STRAPI_URL:",
-      process.env.NEXT_PUBLIC_STRAPI_URL
-    );
-
     const req = await axiosClient.get(`/menus?populate=*`);
     return req.data.data;
   } catch (error) {

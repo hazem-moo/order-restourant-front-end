@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // 🔥 يخلي الصفحة دايمًا تتحدث
+
 import Container from "@/components/Container";
 import Image from "next/image";
 import Link from "next/link";
