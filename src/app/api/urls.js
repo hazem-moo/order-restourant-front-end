@@ -4,7 +4,7 @@
 // export const PropsUrl = `https://funny-harmony-ea89b56a43.strapiapp.com`;
 
 import axios from "axios";
-const api_token = process.env.STRAPI_API_TOKEN;
+const api_token = process.env.NEXT_PUBLIC_STRAPI_TOKEN;
 
 const url = process.env.NEXT_PUBLIC_STRAPI_URL + "/api";
 
