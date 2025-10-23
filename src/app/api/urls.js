@@ -5,10 +5,8 @@
 
 import axios from "axios";
 const api_token = process.env.STRAPI_API_TOKEN;
-// ? process.env.STRAPI_API_TOKEN
-// : process.env.NEXT_PUBLIC_TOKEN;
 
-const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api`;
+const url = process.env.NEXT_PUBLIC_STRAPI_URL + "/api";
 
 export const axiosClient = axios.create({
   baseURL: url,

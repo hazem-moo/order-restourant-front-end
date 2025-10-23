@@ -2,15 +2,16 @@ import { axiosClient } from "./urls";
 
 export const GetMenu = async () => {
   try {
+    console.log("🔑 STRAPI_API_TOKEN:", process.env.STRAPI_API_TOKEN);
     console.log(
-      "🌍 Fetching from:",
-      axiosClient.defaults.baseURL + "/menus?populate=*"
+      "🌐 NEXT_PUBLIC_STRAPI_URL:",
+      process.env.NEXT_PUBLIC_STRAPI_URL
     );
 
     const req = await axiosClient.get(`/menus?populate=*`);
     return req.data.data;
   } catch (error) {
-    console.error("❌ Request failed:", error.response?.data || error.message);
+    console.error(error);
     return [];
   }
 };
@@ -26,7 +27,7 @@ export const getOrder = async () => {
 
 export const postMenu = async (item) => {
   try {
-    console.log("📦 SENDING ITEM:", item);
+    // console.log("📦 SENDING ITEM:", item);
     const res = await axiosClient.post(`/orders`, item);
     return res.data.data;
   } catch (error) {
