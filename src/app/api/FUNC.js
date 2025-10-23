@@ -2,10 +2,15 @@ import { axiosClient } from "./urls";
 
 export const GetMenu = async () => {
   try {
+    console.log(
+      "🌍 Fetching from:",
+      axiosClient.defaults.baseURL + "/menus?populate=*"
+    );
+
     const req = await axiosClient.get(`/menus?populate=*`);
     return req.data.data;
   } catch (error) {
-    console.error(error.message);
+    console.error("❌ Request failed:", error.response?.data || error.message);
     return [];
   }
 };
