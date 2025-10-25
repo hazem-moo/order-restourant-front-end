@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic"; // 🔥 يخلي الصفحة دايمً
 import Container from "@/components/Container";
 import Image from "next/image";
 import Link from "next/link";
-import { GetMenu } from "../../api/FUNC";
+import { GetMenu } from "../../../utils/FUNC";
 
 const Page = async ({ params }) => {
   const { category } = params;

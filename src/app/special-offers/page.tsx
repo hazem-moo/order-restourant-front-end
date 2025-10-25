@@ -1,12 +1,12 @@
 export const dynamic = "force-dynamic"; // 🔥 يخلي الصفحة دايمًا تتحدث
 
 import Container from "@/components/Container";
+import { GetMenu } from "@/utils/FUNC";
 import { PropsGetMenus } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 import { FaMotorcycle } from "react-icons/fa";
 import { FaFileCircleCheck } from "react-icons/fa6";
-import { GetMenu } from "../api/FUNC";
 
 const Offers = async () => {
   const menus: PropsGetMenus[] = await GetMenu();

@@ -1,10 +1,8 @@
-export const dynamic = "force-dynamic"; // 🔥 يخلي الصفحة دايمًا تتحدث
-
 import { IdProps, PropsGetMenus } from "@/utils/types";
 import Details from "./Details";
 import Similar from "./Similar";
 import RandomMenu from "@/components/RandomMenu";
-import { GetMenu } from "@/app/api/FUNC";
+import { GetMenu } from "@/utils/FUNC";
 
 const page = async ({ params }: IdProps) => {
   const id = await Number(params.id);

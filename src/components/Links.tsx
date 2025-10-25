@@ -4,7 +4,7 @@
 
 export const dynamic = "force-dynamic";
 
-import { getOrder } from "@/app/api/FUNC";
+import { getOrder } from "@/utils/FUNC";
 import { useMenu } from "@/utils/MenuContext";
 import { PropsGetMenus } from "@/utils/types";
 import { UserButton, useUser } from "@clerk/nextjs";

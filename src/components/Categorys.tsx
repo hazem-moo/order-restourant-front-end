@@ -5,7 +5,7 @@ import { PropsGetMenus } from "@/utils/types";
 import Link from "next/link";
 import Image from "next/image";
 import Container from "./Container";
-import { GetMenu } from "../app/api/FUNC";
+import { GetMenu } from "../utils/FUNC";
 
 const Categorys = () => {
   const data: PropsGetMenus[] = use(GetMenu());

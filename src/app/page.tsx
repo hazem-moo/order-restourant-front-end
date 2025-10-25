@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // 🔥 يخلي الصفحة دايمًا تتحدث
+
 import AboutUs from "@/components/AboutUs";
 import Categorys from "@/components/Categorys";
 import Home from "@/components/Home";

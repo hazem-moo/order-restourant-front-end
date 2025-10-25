@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { getOrder, postMenu } from "@/app/api/FUNC";
 import Container from "@/components/Container";
+import { getOrder, postMenu } from "@/utils/FUNC";
 import { useMenu } from "@/utils/MenuContext";
 import { PropsGetMenus } from "@/utils/types";
 import { useUser } from "@clerk/nextjs";
